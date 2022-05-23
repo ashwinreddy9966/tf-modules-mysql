@@ -7,7 +7,7 @@ resource "aws_elasticache_cluster" "redis" {
   engine_version       = "6.x"
   port                 = 6379
   subnet_group_name    = aws_elasticache_subnet_group.subnet-group.name
-  security_group_ids  = [aws_security_group.redis.id]
+  security_group_ids  = [aws_security_group.mysql.id]
 }
 
 resource "aws_elasticache_parameter_group" "default" {
@@ -20,17 +20,24 @@ resource "aws_elasticache_subnet_group" "subnet-group" {
   subnet_ids = data.terraform_remote_state.vpc.outputs.PRIVATE_SUBNET_IDS
 }
 
-resource "aws_security_group" "redis" {
-  name        = "roboshop-redis-${var.ENV}"
-  description = "roboshop-redis-${var.ENV}"
+resource "aws_security_group" "mysql" {
+  name        = "roboshop-mysql-${var.ENV}"
+  description = "roboshop-mysql-${var.ENV}"
   vpc_id      = data.terraform_remote_state.vpc.outputs.VPC_ID
 
   ingress {
-    description = "Allows Redis Port"
-    from_port   = 6379
-    to_port     = 6379
+    description = "Allows MySQL Port"
+    from_port   = 3306
+    to_port     = 3306
     protocol    = "tcp"
     cidr_blocks = [data.terraform_remote_state.vpc.outputs.VPC_CIDR]
+  }
+  ingress {
+    description = "Allows Def Subnet CIDR"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = [data.terraform_remote_state.vpc.outputs.DEFAULT_VPC_CIDR]
   }
 
   egress {
