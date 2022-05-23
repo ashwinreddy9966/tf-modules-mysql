@@ -19,6 +19,7 @@ resource "aws_db_subnet_group" "mysql" {
   }
 }
 
+
 resource "aws_security_group" "mysql" {
   name        = "roboshop-mysql-${var.ENV}"
   description = "roboshop-mysql-${var.ENV}"
