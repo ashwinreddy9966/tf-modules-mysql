@@ -1,14 +1,15 @@
 resource "aws_db_instance" "mysql" {
-  identifier           = "roboshop-${var.ENV}"
-  allocated_storage    = 10
-  engine               = "mysql"
-  engine_version       = "5.7"
-  instance_class       = "db.t3.micro"
-  username             = "admin1"
-  password             = "RoboShop1"
-  parameter_group_name = "default.mysql5.7"
-  skip_final_snapshot  = true
-  aws_db_subnet_group  = aws_db_subnet_group.mysql.name
+  identifier             = "roboshop-${var.ENV}"
+  allocated_storage      = 10
+  engine                 = "mysql"
+  engine_version         = "5.7"
+  instance_class         = "db.t3.micro"
+  username               = "admin1"
+  password               = "RoboShop1"
+  parameter_group_name   = "default.mysql5.7"
+  skip_final_snapshot    = true
+  aws_db_subnet_group    = aws_db_subnet_group.mysql.name
+  vpc_security_group_ids = [aws_security_group.mysql.id]
 }
 
 resource "aws_db_subnet_group" "mysql" {
