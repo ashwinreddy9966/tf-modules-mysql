@@ -10,8 +10,8 @@ resource "aws_db_instance" "mysql" {
   aws_db_subnet_group  =
 }
 
-resource "aws_db_subnet_group" "default" {
-    name       = "roboshop-${var.ENV}"
+resource "aws_db_subnet_group" "mysql" {
+    name       = "roboshop-mysql-${var.ENV}"
     subnet_ids = data.terraform_remote_state.vpc.outputs.PRIVATE_SUBNET_IDS
 
   tags = {
