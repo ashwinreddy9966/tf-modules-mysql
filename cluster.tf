@@ -19,6 +19,10 @@ resource "aws_db_subnet_group" "mysql" {
   }
 }
 
+resource "aws_db_parameter_group" "mysql" {
+  name   = "roboshop-mysql-${var.ENV}"
+  family = "mysql5.7"
+}
 
 resource "aws_security_group" "mysql" {
   name        = "roboshop-mysql-${var.ENV}"
