@@ -36,7 +36,7 @@ resource "aws_security_group" "mysql" {
     from_port   = 3306
     to_port     = 3306
     protocol    = "tcp"
-    cidr_blocks = [data.terraform_remote_state.vpc.outputs.VPC_CIDR]
+    cidr_blocks = [data.terraform_remote_state.vpc.outputs.VPC_CIDR, var.WORKSTATION_IP]
   }
   ingress {
     description = "SSH"
