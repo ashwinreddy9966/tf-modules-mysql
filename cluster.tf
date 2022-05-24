@@ -3,7 +3,7 @@ resource "aws_db_instance" "mysql" {
   allocated_storage      = var.RDS_MYSQL_STORAGE
   engine                 = "mysql"
   engine_version         = var.RDS_ENGINE_VERSION
-  instance_class         = "db.t3.micro"
+  instance_class         = var.RDS_INSTANCE_TYPE
   username               = "admin1"
   password               = "RoboShop1"
   parameter_group_name   = "default.mysql5.7"
