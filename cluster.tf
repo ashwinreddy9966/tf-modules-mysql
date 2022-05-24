@@ -4,7 +4,7 @@ resource "aws_db_instance" "mysql" {
   engine                 = "mysql"
   engine_version         = var.RDS_ENGINE_VERSION
   instance_class         = var.RDS_INSTANCE_TYPE
-  username               = "admin1"
+  username               = jsondecode(data.aws_secretsmanager_secret_version.secrets.secret_string)["DOCUMENTDB_MASTER_PASSWORD"]
   password               = "RoboShop1"
   parameter_group_name   = "default.mysql5.7"
   skip_final_snapshot    = true
