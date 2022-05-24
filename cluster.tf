@@ -33,8 +33,8 @@ resource "aws_security_group" "mysql" {
 
   ingress {
     description = "Allows MySQL Port"
-    from_port   = 3306
-    to_port     = 3306
+    from_port   = var.RDS_MYSQL_PORT
+    to_port     = var.RDS_MYSQL_PORT
     protocol    = "tcp"
     cidr_blocks = [data.terraform_remote_state.vpc.outputs.VPC_CIDR, var.WORKSTATION_IP]
   }
@@ -43,15 +43,9 @@ resource "aws_security_group" "mysql" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = [data.terraform_remote_state.vpc.outputs.VPC_CIDR, "172.31.94.85/32"]
+    cidr_blocks = [data.terraform_remote_state.vpc.outputs.VPC_CIDR, var.WORKSTATION_IP]
   }
-#  ingress {
-#    description = "Allows Def Subnet CIDR"
-#    from_port   = 22
-#    to_port     = 22
-#    protocol    = "tcp"
-#    cidr_blocks = [data.terraform_remote_state.vpc.outputs.DEFAULT_VPC_CIDR]
-#  }
+
 
   egress {
     from_port        = 0
